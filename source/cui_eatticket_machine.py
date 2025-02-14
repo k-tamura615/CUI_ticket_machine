@@ -118,3 +118,4 @@ def change_price():  # 価格変更画面
     input("Enterキーを押して戻る...")
 if __name__ == "__main__":
     main()
+    
