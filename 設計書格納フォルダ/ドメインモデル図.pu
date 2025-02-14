@@ -1,0 +1,83 @@
+@startuml BookAggregation
+
+title 券売機シュミレーション
+
+package "券売機シュミレーション" {
+    class "商品" as Commodity << (R,red) RootEntity >> {
+        商品名: 商品名
+        値段: お金
+        商品番号: 番号
+    }
+
+    class "券売機" as Machine << (E,green) Entity >> {
+        売上: 売上
+        売上げリセット: 売上リセット
+        お金の投入口: お金投入
+        お釣りを出す: お釣りを出す
+        券: 枚数
+        価格変更: 値段替え
+    }
+
+    class "商品名" {
+        + value: string
+    }
+
+    class "値段" {
+        + value: int
+        + 価格変更
+    }
+
+    class "商品番号" {
+        + value: number
+    }
+
+    class "売上"{
+        + value: int
+        + 売上リセット
+    }
+
+    class "売上リセット"  {
+      + value: int
+    }
+
+    class "お金投入"  {
+      + value: int
+    }
+
+    class "お釣りを出す"  {
+      + value: int
+    }
+
+    class "券"{
+        + value: int
+    }
+
+    class "価格変更"{
+        + value: int
+    }
+        note bottom of 価格変更
+        価格変更の前に売り上げのリセットを行わなければならない
+    end note
+
+
+    Commodity *-- 商品名
+    Commodity *-- 値段
+    Commodity *-- 商品番号
+
+    Machine *-- 券
+    Machine *-- 価格変更
+    Machine *-- 売上
+    Machine *-- お金投入
+    Machine *-- お釣りを出す
+
+
+    売上 *-- 売上リセット
+
+    値段 *-- 価格変更
+
+    商品名 *--* 商品番号
+
+
+}
+
+@enduml

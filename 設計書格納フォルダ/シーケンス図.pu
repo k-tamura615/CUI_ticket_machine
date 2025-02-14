@@ -1,0 +1,79 @@
+@startuml ライフラインの活性化と破棄
+skinparam style strictuml
+skinparam sequenceMessageAlign center
+
+actor 利用者
+participant 券売機
+    alt push Enter
+        activate 利用者
+        利用者 ->  券売機 ++: 購入画面に移動
+        create 管理画面
+        券売機 -> 管理画面 ++: アクセス
+        deactivate  券売機
+        create 商品一覧
+        管理画面 -> 商品一覧 ++: 表示させる
+        deactivate  管理画面
+        商品一覧 -> 利用者 : 商品名、価格を画面に表示
+        deactivate  商品一覧
+        loop 0,商品購入
+            利用者 -> 券売機 ++: 商品を選ぶ
+            券売機 --> 利用者 : 商品選択をやめるか問う
+        end loop
+        券売機 -> 利用者 : 購入商品一覧と値段を表示
+        deactivate 券売機
+        利用者 -> 券売機 ++: 代金を入力する
+        loop 0,金額入力チェック
+        券売機 -> 利用者 :　入力された値が不正な値の場合エラー分を表示
+        end loop
+        券売機 -> 利用者 :券とお釣りを出す
+        deactivate  券売機
+        利用者 -> 券売機 ++: 券とお釣りを受け取り、購入を完了する
+        券売機 -> 利用者 : タイトル画面を表示
+        deactivate  券売機
+    else push A
+        利用者 ->  券売機 ++: 管理者画面に移動
+        create 管理画面
+        券売機 -> 管理画面 ++: アクセス
+        deactivate  券売機
+        create 商品一覧
+        管理画面 -> 商品一覧 ++: 表示させる
+        商品一覧 -> 利用者 : 商品名、価格を画面に表示
+        deactivate  商品一覧
+        管理画面 -> 利用者 : 総売上と管理メニューを表示
+        deactivate  商品一覧
+        deactivate  管理画面
+        alt 管理コード push1
+            利用者 -> 管理画面 ++: 管理コードで1を入力
+            管理画面 -> 利用者 : 売上リセット
+            deactivate 管理画面
+        else push2
+            利用者 -> 管理画面 ++: 管理コードで2を入力
+            alt 売上リセット済み
+            管理画面 -> 利用者 : 商品のコードの入力画面を表示
+            deactivate 管理画面
+            利用者 -> 管理画面 ++: コードを入力
+            管理画面 -> 利用者 : 価格変更画面を表示
+            deactivate 管理画面
+            利用者 -> 管理画面 ++: 価格の変更を入力
+            loop 0,不正な入力
+                管理画面 -> 利用者: 無効な入力です、数値を入力してくださいと表示
+            end loop
+            管理画面 -> 利用者 : 価格変更完了の旨を伝えるメッセージを表示
+            else 売上リセットがされていない
+            管理画面 -> 利用者 : 売上のリセットをしてから価格を変更してくださいと画面に表示する
+            deactivate 管理画面
+            end alt
+        else push3
+            利用者 -> 管理画面 ++: 管理コードで3を入力
+            管理画面 -> 利用者 :　管理画面を終了しタイトル画面に戻る
+            deactivate 管理画面
+        end alt
+        deactivate 管理画面
+    else push q
+        create システム
+        利用者 -> システム ++:　qを入力
+        システム -> 利用者 : このシュミレーションを終了する
+        deactivate システム
+        deactivate 利用者
+    end alt 
+@enduml
