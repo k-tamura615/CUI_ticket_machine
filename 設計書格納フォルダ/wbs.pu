@@ -1,0 +1,22 @@
+@startwbs 券売機
+
+title
+wbs
+endtitle
+* 全機能を確認する
+**[#SkyBlue] 購入機能の確認
+***[#Yellow] enterキーで購入画面に移動
+***[#Yellow] 商品を選択する
+***[#Yellow] 金額を入力する
+***[#Yellow] おつりを受け取る
+***[#Yellow] 購入を完了する
+***[#Yellow] enterキーでタイトル画面に戻る
+**[#SkyBlue] 管理機能の確認
+***[#Yellow] escキーで管理画面に移動
+***[#Yellow] 商品一覧を表示する
+***[#Yellow] 総売上を表示する
+***[#Yellow] 管理メニューを表示する
+***[#Yellow] 管理コードを入力する
+***[#Yellow] 商品の売り上げをリセットする
+**[#SkyBlue] qキーで終了する
+@endwbs
