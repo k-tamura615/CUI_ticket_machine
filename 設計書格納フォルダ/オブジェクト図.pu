@@ -1,0 +1,47 @@
+@startuml 券売機
+class "ラーメン" as Ramen{
+   値段
+   商品番号
+}
+
+object "味噌ラーメン" as Miso{
+   値段 =  800
+   商品番号 = 1
+}
+
+object "ミルク味噌ラーメン" as Milk{
+   値段 =  850
+   商品番号 = 2
+}
+
+object "塩ラーメン" as sio{
+   値段 =  900
+   商品番号 = 3
+}
+
+object "醬油ラーメン" as syouyu{
+   値段 =  780
+   商品番号 = 4
+}
+
+object "券売機1" as Machine1 {
+  売上 = 5000
+  お金投入 = 1000
+  お釣りを出す = 200
+  券 = 1
+}
+
+object "価格変更1" as PriceChange1 {
+  value = 900
+}
+
+object "売上リセット1" as SalesReset1 {
+  value = 0
+}
+
+Ramen <-- Miso
+Ramen <-- sio
+Ramen <-- Milk
+Ramen <-- syouyu
+
+@enduml
